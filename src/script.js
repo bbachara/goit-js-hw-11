@@ -51,6 +51,15 @@ const displayImages = (hits, totalHits) => {
     );
     gallery.innerHTML = gallery.innerHTML + markupArray.join('');
 
+    const { height: cardHeight } = document //smooth scroll start
+      .querySelector('.gallery')
+      .firstElementChild.getBoundingClientRect();
+
+    window.scrollBy({
+      top: cardHeight * 2,
+      behavior: 'smooth',
+    }); //smooth scroll end
+
     if (totalHits > gallery.children.length) {
       loadMoreButton.style.display = 'block';
     } else {
@@ -62,6 +71,7 @@ const displayImages = (hits, totalHits) => {
     if (currentPage === 1) {
       Notiflix.Notify.info(`Hooray! We found ${totalHits} images.`);
     }
+    lightbox = new SimpleLightbox('.gallery a'); //added SimpleLightbox
   }
 };
 
@@ -71,7 +81,7 @@ const getDataAndDisplayImages = async (searchQuery, page) => {
     displayImages(hits, totalHits);
     currentPage = page + 1;
   } catch (error) {
-    console.error('Error fetching data and displaying images:', error);
+    console.error('Error:', error);
   }
 };
 
