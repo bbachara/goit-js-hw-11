@@ -51,17 +51,6 @@ const displayImages = (hits, totalHits) => {
     );
     gallery.innerHTML = gallery.innerHTML + markupArray.join('');
 
-    lightbox = new SimpleLightbox('.gallery a'); //added SimpleLightbox
-
-    const { height: cardHeight } = document //smooth scroll start
-      .querySelector('.gallery')
-      .firstElementChild.getBoundingClientRect();
-
-    window.scrollBy({
-      top: cardHeight * 2,
-      behavior: 'smooth',
-    }); //smooth scroll end
-
     if (totalHits > gallery.children.length) {
       loadMoreButton.style.display = 'block';
     } else {
