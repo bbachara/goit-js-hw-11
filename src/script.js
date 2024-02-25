@@ -1,7 +1,7 @@
 import axios from 'axios';
 import Notiflix from 'notiflix';
-import SimpleLightbox from 'simplelightbox'; //add for SimpleLightbox
-import 'simplelightbox/dist/simple-lightbox.min.css'; //add for SimpleLightbox
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
 
 let currentPage = 1;
 let currentSearchQuery = '';
@@ -19,7 +19,7 @@ const fetchData = async (searchQuery, page) => {
     const { hits, totalHits } = response.data;
     return { hits, totalHits };
   } catch (error) {
-    console.error('Error fetching data from Pixabay API:', error);
+    console.error('Error', error);
     throw error;
   }
 };
@@ -33,25 +33,34 @@ const displayImages = (hits, totalHits) => {
     const markupArray = hits.map(
       ({
         webformatURL,
-        largeImageURL, //add for SimpleLightbox
-        tags, //add for SimpleLightbox
+        largeImageURL, //added for SimpleLightbox
+        tags, //added for SimpleLightbox
         likes,
         views,
         comments,
-        downloads, // add BELOW for SimpleLightbox
+        downloads, // added BELOW for SimpleLightbox
       }) => `<div class="photo-card"><a class="gallery__item" href="${largeImageURL}"> 
   <img class="gallery__image" src="${webformatURL}" alt="${tags}" loading="lazy" /></a> 
   <div class="info"> 
-              <p class="info-item"><b>Likes ${likes}</b></p>
-              <p class="info-item"><b>Views ${views}</b></p>
-              <p class="info-item"><b>Comments ${comments}</b></p>
-              <p class="info-item"><b>Downloads ${downloads}</b></p>
-          </div>
-      </div>`
+  <p class="info-item"><b>Likes ${likes}</b></p>
+  <p class="info-item"><b>Views ${views}</b></p>
+  <p class="info-item"><b>Comments ${comments}</b></p>
+  <p class="info-item"><b>Downloads ${downloads}</b></p>
+  </div>
+  </div>`
     );
     gallery.innerHTML = gallery.innerHTML + markupArray.join('');
 
-    lightbox = new SimpleLightbox('.gallery a'); //add SimpleLightbox
+    lightbox = new SimpleLightbox('.gallery a'); //added SimpleLightbox
+
+    const { height: cardHeight } = document //smooth scroll start
+      .querySelector('.gallery')
+      .firstElementChild.getBoundingClientRect();
+
+    window.scrollBy({
+      top: cardHeight * 2,
+      behavior: 'smooth',
+    }); //smooth scroll end
 
     if (totalHits > gallery.children.length) {
       loadMoreButton.style.display = 'block';

@@ -17,6 +17,8 @@ h1 {
 
 .search-form input {
   min-width: 550px;
+  font-size: 16px;
+  height: 30px;
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 5px;
@@ -38,7 +40,8 @@ h1 {
   position: relative;
   right: 20px;
   top: 50%;
-  padding: 10px 20px;
+  font-size: 16px;
+  padding: 16px 20px;
   border: 1px solid grey;
   border-radius: 5px;
   background-color: lightgrey;
@@ -62,7 +65,8 @@ h1 {
 }
 
 .load-more {
-  padding: 10px 20px;
+  font-size: 16px;
+  padding: 16px 20px;
   border: 1px solid grey;
   border-radius: 5px;
   background-color: lightgrey;
