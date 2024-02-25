@@ -80,7 +80,7 @@ h1 {
 }
 
 .gallery {
-  max-width: 1366px;
+  max-width: 1550px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 20px;
