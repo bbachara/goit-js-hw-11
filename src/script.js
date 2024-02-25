@@ -1,8 +1,11 @@
 import axios from 'axios';
 import Notiflix from 'notiflix';
+import SimpleLightbox from 'simplelightbox'; //add for SimpleLightbox
+import 'simplelightbox/dist/simple-lightbox.min.css'; //add for SimpleLightbox
 
 let currentPage = 1;
 let currentSearchQuery = '';
+
 const form = document.querySelector('#search-form');
 const loadMoreButton = document.querySelector('.load-more');
 const gallery = document.querySelector('.gallery');
@@ -28,10 +31,17 @@ const displayImages = (hits, totalHits) => {
     );
   } else {
     const markupArray = hits.map(
-      ({ webformatURL, likes, views, comments, downloads }) => `
-      <div class="photo-card">
-          <img src="${webformatURL}" alt="" loading="lazy" />
-          <div class="info">
+      ({
+        webformatURL,
+        largeImageURL, //add for SimpleLightbox
+        tags, //add for SimpleLightbox
+        likes,
+        views,
+        comments,
+        downloads, // add BELOW for SimpleLightbox
+      }) => `<div class="photo-card"><a class="gallery__item" href="${largeImageURL}"> 
+  <img class="gallery__image" src="${webformatURL}" alt="${tags}" loading="lazy" /></a> 
+  <div class="info"> 
               <p class="info-item"><b>Likes ${likes}</b></p>
               <p class="info-item"><b>Views ${views}</b></p>
               <p class="info-item"><b>Comments ${comments}</b></p>
@@ -40,6 +50,9 @@ const displayImages = (hits, totalHits) => {
       </div>`
     );
     gallery.innerHTML = gallery.innerHTML + markupArray.join('');
+
+    lightbox = new SimpleLightbox('.gallery a'); //add SimpleLightbox
+
     if (totalHits > gallery.children.length) {
       loadMoreButton.style.display = 'block';
     } else {

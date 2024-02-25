@@ -21,6 +21,7 @@ h1 {
   border: 1px solid #ddd;
   border-radius: 5px;
   margin-right: 10px;
+  box-shadow: 11px 11px 17px -6px rgba(0, 0, 0, 0.75);
 }
 
 .search-form input:hover {
@@ -43,6 +44,7 @@ h1 {
   background-color: lightgrey;
   color: grey;
   cursor: pointer;
+  box-shadow: 11px 11px 17px -6px rgba(0, 0, 0, 0.75);
 }
 
 .search-form button:hover {
@@ -67,6 +69,7 @@ h1 {
   color: grey;
   cursor: pointer;
   margin: 0 auto;
+  box-shadow: 11px 11px 17px -6px rgba(0, 0, 0, 0.75);
 }
 
 .load-more:active {
@@ -92,6 +95,7 @@ h1 {
   border: 1px solid grey;
   padding: 10px;
   margin-bottom: 20px;
+  box-shadow: 11px 11px 17px -6px rgba(0, 0, 0, 0.75);
 }
 
 .photo-card .photo-description {
