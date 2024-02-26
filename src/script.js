@@ -52,11 +52,14 @@ const displayImages = (hits, totalHits) => {
     gallery.innerHTML = gallery.innerHTML + markupArray.join('');
 
     const { height: cardHeight } = document //smooth scroll start
+
       .querySelector('.gallery')
+
       .firstElementChild.getBoundingClientRect();
 
     window.scrollBy({
       top: cardHeight * 2,
+
       behavior: 'smooth',
     }); //smooth scroll end
 
@@ -68,9 +71,11 @@ const displayImages = (hits, totalHits) => {
         "We're sorry, but you've reached the end of search results."
       );
     }
+
     if (currentPage === 1) {
       Notiflix.Notify.info(`Hooray! We found ${totalHits} images.`);
     }
+
     lightbox = new SimpleLightbox('.gallery a'); //added SimpleLightbox
   }
 };
@@ -78,8 +83,9 @@ const displayImages = (hits, totalHits) => {
 const getDataAndDisplayImages = async (searchQuery, page) => {
   try {
     const { hits, totalHits } = await fetchData(searchQuery, page);
-    currentPage = page + 1;
+
     displayImages(hits, totalHits);
+    currentPage = page + 1;
   } catch (error) {
     console.error('Error:', error);
   }
@@ -96,6 +102,7 @@ const formSubmit = async event => {
     Notiflix.Notify.failure(
       'Please type something into the "Search images..." field.'
     );
+
     return;
   }
   if (searchQuery !== currentSearchQuery) {
