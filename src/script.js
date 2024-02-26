@@ -78,8 +78,8 @@ const displayImages = (hits, totalHits) => {
 const getDataAndDisplayImages = async (searchQuery, page) => {
   try {
     const { hits, totalHits } = await fetchData(searchQuery, page);
-    displayImages(hits, totalHits);
     currentPage = page + 1;
+    displayImages(hits, totalHits);
   } catch (error) {
     console.error('Error:', error);
   }
@@ -88,9 +88,16 @@ const getDataAndDisplayImages = async (searchQuery, page) => {
 const formSubmit = async event => {
   event.preventDefault();
   loadMoreButton.style.display = 'none';
-  const searchQuery = document.querySelector(
+  const searchInput = document.querySelector(
     '#search-form input[name="searchQuery"]'
-  ).value;
+  );
+  const searchQuery = searchInput.value.trim();
+  if (searchQuery === '') {
+    Notiflix.Notify.failure(
+      'Please type something into the "Search images..." field.'
+    );
+    return;
+  }
   if (searchQuery !== currentSearchQuery) {
     currentPage = 1;
     currentSearchQuery = searchQuery;
