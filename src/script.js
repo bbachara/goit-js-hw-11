@@ -83,9 +83,8 @@ const displayImages = (hits, totalHits) => {
 const getDataAndDisplayImages = async (searchQuery, page) => {
   try {
     const { hits, totalHits } = await fetchData(searchQuery, page);
-
-    displayImages(hits, totalHits);
     currentPage = page + 1;
+    displayImages(hits, totalHits);
   } catch (error) {
     console.error('Error:', error);
   }
