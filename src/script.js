@@ -52,14 +52,11 @@ const displayImages = (hits, totalHits) => {
     gallery.innerHTML = gallery.innerHTML + markupArray.join('');
 
     const { height: cardHeight } = document //smooth scroll start
-
       .querySelector('.gallery')
-
       .firstElementChild.getBoundingClientRect();
 
     window.scrollBy({
       top: cardHeight * 2,
-
       behavior: 'smooth',
     }); //smooth scroll end
 
@@ -72,7 +69,9 @@ const displayImages = (hits, totalHits) => {
       );
     }
 
+    console.log('currentPage:', currentPage);
     if (currentPage === 1) {
+      console.log('Displaying notification for totalHits:', totalHits);
       Notiflix.Notify.info(`Hooray! We found ${totalHits} images.`);
     }
 
@@ -83,7 +82,13 @@ const displayImages = (hits, totalHits) => {
 const getDataAndDisplayImages = async (searchQuery, page) => {
   try {
     const { hits, totalHits } = await fetchData(searchQuery, page);
-    currentPage = page + 1;
+
+    if (page === 1) {
+      currentPage = page;
+    } else {
+      currentPage++;
+    }
+
     displayImages(hits, totalHits);
   } catch (error) {
     console.error('Error:', error);
@@ -101,7 +106,6 @@ const formSubmit = async event => {
     Notiflix.Notify.failure(
       'Please type something into the "Search images..." field.'
     );
-
     return;
   }
   if (searchQuery !== currentSearchQuery) {
@@ -116,7 +120,9 @@ const loadMore = async () => {
   const searchQuery = document.querySelector(
     '#search-form input[name="searchQuery"]'
   ).value;
-  await getDataAndDisplayImages(searchQuery, currentPage);
+  const nextPage = currentPage + 1;
+
+  await getDataAndDisplayImages(searchQuery, nextPage);
 };
 
 form.addEventListener('submit', formSubmit);
